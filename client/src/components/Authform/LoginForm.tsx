@@ -1,8 +1,19 @@
 import Image from 'next/image'
 import Link from 'next/link'
 import React from 'react'
+import fetcher from '../../services/fetcher'
 
 const LoginForm = () => {
+  const [email, setEmail] = React.useState('')
+  const [password, setPassword] = React.useState('')
+
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault()
+
+    await fetcher('/login', { email, password })
+  }
+
+
   return (
     <div
       style={{
@@ -18,10 +29,18 @@ const LoginForm = () => {
           <h2 className='text-3xl'>Log in</h2>
           <p className='pt-2 text-sm text-[#616870]'>Sign in if you have an account.</p>
         </div>
-        <form className='pt-4 mb-4'>
-          <input placeholder='Email' className='mb-2 bg-[#F2F4F6] w-full p-[12px] rounded-xl' />
-          <input placeholder='Password' className='mb-2 bg-[#F2F4F6] w-full p-[12px] rounded-xl' />
-          <button placeholder='Password' className='mt-2 bg-black text-[#616870] font-bold w-full p-[12px] rounded-xl'>
+        <form className='pt-4 mb-4' onSubmit={handleSubmit}>
+          <input
+            placeholder='Email'
+            className='mb-2 bg-[#F2F4F6] w-full p-[12px] rounded-xl'
+            onChange={(e) => setEmail(e.target.value)}
+          />
+          <input
+            placeholder='Password'
+            className='mb-2 bg-[#F2F4F6] w-full p-[12px] rounded-xl'
+            onChange={(e) => setPassword(e.target.value)}
+          />
+          <button type='submit' className='mt-2 bg-black text-[#616870] font-bold w-full p-[12px] rounded-xl'>
             Sign in
           </button>
         </form>
