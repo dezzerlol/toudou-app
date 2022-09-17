@@ -1,0 +1,85 @@
+version: "3.7"
+
+services:
+  postgres:
+    container_name: toudou-db
+    image: postgres
+    environment:
+      POSTGRES_USER: ${POSTGRES_USER:-postgres}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-root}
+      PGDATA: /data/postgres
+    volumes:
+      - postgres:/data/postgres
+    ports:
+      - "5432:5432"
+    networks:
+      - postgres
+    restart: unless-stopped
+
+  pgadmin:
+    container_name: pgadmin_container
+    image: dpage/pgadmin4
+    environment:
+      PGADMIN_DEFAULT_EMAIL: ${PGADMIN_DEFAULT_EMAIL:-pgadmin4@pgadmin.org}
+      PGADMIN_DEFAULT_PASSWORD: ${PGADMIN_DEFAULT_PASSWORD:-admin}
+    volumes:
+      - pgadmin:/root/.pgadmin
+    ports:
+      - "${PGADMIN_PORT:-5050}:80"
+    networks:
+      - postgres
+    restart: unless-stopped
+  
+  server:
+    container_name: server
+    build:
+      context: ./server
+      dockerfile: Dockerfile
+    working_dir: /app/server
+    env_file:
+      - ./server/.env.development
+    #Set env variable to db name. Because services running in same network, we cant use localhost as host
+    environment:
+      - POSTGRES_HOST=toudou-db
+    volumes:
+      - type: bind
+        source: ./server
+        target: /app/server
+    #- ./app/server/node_modules
+    ports:
+      - 5000:5000
+      - 9229:9229
+    command: yarn start:dev
+    networks:
+      - postgres
+    depends_on:
+      - postgres
+    restart: always
+  
+  client:
+    container_name: client
+    build:
+      context: ./client
+      dockerfile: Dockerfile
+    working_dir: /app/client
+    volumes:
+      - type: bind
+        source: ./client
+        target: /app/client
+      - /app/client/node_modules
+      - /app/client/.next
+    ports:
+      - 3000:3000
+    networks:
+      - postgres
+    depends_on:
+      - postgres
+    restart: always
+
+networks:
+  postgres:
+    driver: bridge
+
+volumes:
+  postgres:
+  pgadmin:
