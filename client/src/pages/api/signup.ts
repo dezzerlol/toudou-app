@@ -6,7 +6,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
 
   console.log({ email, password })
 
-  const login = await fetch('http://localhost:5000/auth/login', {
+  const login = await fetch('http://localhost:5000/auth/register', {
     method: 'POST',
     credentials: 'include',
     headers: { 'Content-Type': 'application/json' },
@@ -20,15 +20,6 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
     return res.status(login.status).json({ message: data.message })
   }
 
-  res.setHeader(
-    'Set-Cookie',
-    serialize('AUTH_TOKEN', data.token, {
-      httpOnly: true,
-      maxAge: 2592000,
-      path: '/',
-      sameSite: 'strict',
-      secure: process.env.NODE_ENV === 'production',
-    })
-  )
-  return res.status(200).json(data)
+ 
+  return res.status(login.status).json(data)
 }

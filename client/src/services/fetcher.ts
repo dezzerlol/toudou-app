@@ -6,9 +6,10 @@ export default function fetcher(url: string, data: any = undefined) {
     headers: { 'Content-Type': 'application/json' },
 
     body: JSON.stringify(data),
-  }).then((res) => {
-    if (res.status > 399 && res.status < 200) {
-      throw new Error()
+  }).then(async (res) => {
+    if (!res.ok) {
+      const data = await res.json()
+      throw new Error(data?.message)
     }
     return res.json()
   })
