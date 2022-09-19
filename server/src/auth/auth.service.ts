@@ -24,7 +24,7 @@ export class AuthService {
     const hashPassword = await bcrypt.hash(dto.password, 5)
 
     const user = await this.userService.createUser({ ...dto, password: hashPassword })
-    return await this.generateToken(user)
+    return { status: 'ok' }
   }
 
   private async generateToken(user: User) {
@@ -37,6 +37,10 @@ export class AuthService {
 
   private async validateUser(dto: CreateUserDto) {
     const user = await this.userService.getByEmail(dto.email)
+
+    if (!user) {
+      throw new UnauthorizedException({ message: 'User not found' })
+    }
 
     const passwordEquals = await bcrypt.compare(dto.password, user.password)
     if (user && passwordEquals) {
