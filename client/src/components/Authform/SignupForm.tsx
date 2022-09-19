@@ -7,6 +7,7 @@ import Toast from '../Toast'
 import { AnimatePresence } from 'framer-motion'
 import { SpinnerCircularFixed } from 'spinners-react'
 import SubmitButton from './SubmitButton'
+import Logo from './Logo'
 
 const SignupForm = () => {
   const [email, setEmail] = useState('')
@@ -26,11 +27,8 @@ const SignupForm = () => {
             'linear-gradient(0deg, rgba(235,237,240,1) 0%, rgba(235,237,240,1) 80%, rgba(196,230,254,1) 100%)',
         }}
         className='w-screen h-screen flex flex-col items-center justify-center'>
-        <div className='fixed top-52 flex'>
-          <Image src='/1479.gif' width='32' height='32' />
-          <h1 className='ml-1 text-2xl text-[#4E575F]'>toudou</h1>
-        </div>
-        <div className='max-w-[380px] w-11/12 h-2/5 p-12 bg-white rounded-2xl shadow-2xl'>
+        <Logo />
+        <div className='max-w-[380px] min-h-[400px] w-11/12 h-2/5 p-12 bg-white rounded-2xl shadow-2xl'>
           <div>
             <h2 className='text-3xl'>Sign up</h2>
             <p className='pt-2 text-sm text-[#616870]'>Create new account.</p>
@@ -48,7 +46,7 @@ const SignupForm = () => {
               className='mb-2 bg-[#F2F4F6] w-full p-[12px] rounded-xl'
               onChange={(e) => setPassword(e.target.value)}
             />
-            <SubmitButton text='Submit' isLoading={isLoading}/>
+            <SubmitButton text='Submit' isLoading={isLoading} />
           </form>
           <span>
             Or{' '}
