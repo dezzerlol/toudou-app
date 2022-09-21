@@ -1,5 +1,4 @@
 import { NextApiRequest, NextApiResponse } from 'next'
-import { serialize, CookieSerializeOptions } from 'cookie'
 
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {
   const { email, password } = req.body

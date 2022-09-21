@@ -12,11 +12,13 @@ docker-compose up
 ## Run client locally
 
 ```bash
+cd client
 yarn dev
 ```
 
 ## Run server locally
 
 ```bash
+cd server
 yarn start:dev
 ```

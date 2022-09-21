@@ -1,5 +1,6 @@
+import { serialize } from 'cookie'
+import { decodeJwt, jwtDecrypt } from 'jose'
 import { NextApiRequest, NextApiResponse } from 'next'
-import { serialize, CookieSerializeOptions } from 'cookie'
 
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {
   const { email, password } = req.body
@@ -20,11 +21,15 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
     return res.status(login.status).json({ message: data.message })
   }
 
+  const payload = decodeJwt(data.token)
+  const expTime = new Date((payload.exp as number) * 1000)
+
+
   res.setHeader(
     'Set-Cookie',
     serialize('AUTH_TOKEN', data.token, {
       httpOnly: true,
-      maxAge: 2592000,
+      expires: expTime,
       path: '/',
       sameSite: 'strict',
       secure: process.env.NODE_ENV === 'production',

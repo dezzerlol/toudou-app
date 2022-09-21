@@ -1,5 +1,6 @@
 import { ApiProperty } from '@nestjs/swagger'
 import { BelongsToMany, Column, DataType, HasMany, Model, Table } from 'sequelize-typescript'
+import { Folder } from 'src/folders/folders.model'
 import { Post } from 'src/posts/posts.model'
 import { Role } from 'src/roles/roles.model'
 import { UserRoles } from 'src/roles/users-roles.model'
@@ -36,4 +37,7 @@ export class User extends Model<User, UserCreationAttr> {
 
   @HasMany(() => Post)
   posts: Post[]
+
+  @HasMany(() => Folder)
+  folders: Folder[]
 }

@@ -15,7 +15,7 @@ const NewFolderButton = () => {
         <span>
           <BiPlus size={18} />
         </span>
-        <span className='ml-[6px]'>Create new list</span>
+        <span className='ml-[6px]'>Create new folder</span>
       </div>
       <div className='flex items-center'>
         <span className={`flex items-center justify-center bg-[#F5F4F6] w-6 h-6 text-sm rounded-md text-[#9E9CA0]`}>

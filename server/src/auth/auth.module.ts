@@ -13,7 +13,7 @@ import { AuthService } from './auth.service'
       envFilePath: `.env.${process.env.NODE_ENV}`,
     }),
     forwardRef(() => UsersModule),
-    JwtModule.register({ secret: process.env.JWT_SECRET_KEY || '', signOptions: { expiresIn: '24h' } }),
+    JwtModule.register({ secret: process.env.JWT_SECRET_KEY || '', signOptions: { expiresIn: '7d' } }),
   ],
   exports: [AuthService, JwtModule],
 })

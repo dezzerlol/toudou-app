@@ -7,3 +7,7 @@ export const signupMutation = async ({ email, password }: { email: string; passw
 export const loginMutation = async ({ email, password }: { email: string; password: string }) => {
   await fetcher('/login', { email, password })
 }
+
+export const logoutMutation = async () => {
+  await fetcher('/logout')
+}
