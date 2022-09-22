@@ -1,13 +1,14 @@
 import { Module } from '@nestjs/common'
-import { FoldersService } from './folders.service'
+import { SequelizeModule } from '@nestjs/sequelize'
+import { AuthModule } from 'src/auth/auth.module'
+import { User } from 'src/users/users.model'
 import { FoldersController } from './folders.controller'
 import { Folder } from './folders.model'
-import { User } from 'src/users/users.model'
-import { SequelizeModule } from '@nestjs/sequelize'
+import { FoldersService } from './folders.service'
 
 @Module({
   providers: [FoldersService],
   controllers: [FoldersController],
-  imports: [SequelizeModule.forFeature([User, Folder])],
+  imports: [SequelizeModule.forFeature([User, Folder]), AuthModule],
 })
 export class FoldersModule {}

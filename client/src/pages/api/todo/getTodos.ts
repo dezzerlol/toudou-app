@@ -8,13 +8,15 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
     res.status(401).json({ message: 'Unauthorized' })
   }
 
+  const folderId: string = req.body.folderId
+
   const verifiedCookie = await verify(cookie as string)
 
-  const data = await fetch(`http://localhost:5000/folders/get`, {
+  const data = await fetch(`http://localhost:5000/todo/get`, {
     method: 'POST',
     credentials: 'include',
-    headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${cookie}` },
-    body: JSON.stringify({userId: verifiedCookie.id}),
+    headers: { 'Content-Type': 'application/json', Authorization: `Bearer ${cookie}` },
+    body: JSON.stringify({ folderId: Number(folderId) }),
   })
 
   const folders = await data.json()

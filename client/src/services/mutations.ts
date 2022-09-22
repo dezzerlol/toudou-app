@@ -11,3 +11,15 @@ export const loginMutation = async ({ email, password }: { email: string; passwo
 export const logoutMutation = async () => {
   await fetcher('/logout')
 }
+
+export const getTodosMutation = async (folderId: string) => {
+  return fetcher('/todo/getTodos', { folderId })
+}
+
+export const getFoldersMutation = async () => {
+  return fetcher('/folder/getFolders')
+}
+
+export const createFolderMutation = ({title, userId}: {title: string, userId: number}) =>{
+  return fetcher('/folder/createFolder', {title, userId})
+}

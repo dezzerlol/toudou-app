@@ -1,22 +1,26 @@
-import { BelongsTo, Column, DataType, ForeignKey, Model, Table } from 'sequelize-typescript'
+import { BelongsTo, Column, DataType, Default, ForeignKey, Model, Table } from 'sequelize-typescript'
 import { Folder } from 'src/folders/folders.model'
 
-interface PostCreationAttr {
-  title: string
-  content: string
-  userId: number
-  image: string
+interface TodoCreationAttr {
+  id: number
+  text: string
+  folderId: number
+  icon?: string
+  completed?: boolean
 }
 
 @Table({ tableName: 'todos' })
-export class Todo extends Model<Todo, PostCreationAttr> {
+export class Todo extends Model<Todo, TodoCreationAttr> {
   @Column({ type: DataType.INTEGER, unique: true, autoIncrement: true, primaryKey: true })
   id: number
 
   @Column({ type: DataType.STRING, unique: false, allowNull: false })
   text: string
 
-  @Column({ type: DataType.STRING, unique: false, allowNull: false })
+  @Column({ type: DataType.BOOLEAN, unique: false, allowNull: true, defaultValue: false })
+  completed: boolean
+
+  @Column({ type: DataType.STRING, unique: false, allowNull: true })
   icon: string
 
   @ForeignKey(() => Folder)

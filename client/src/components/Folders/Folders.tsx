@@ -1,9 +1,9 @@
+import { useQuery } from '@tanstack/react-query'
 import { useRouter } from 'next/router'
-import React, { useState } from 'react'
+import { getFoldersMutation } from '../../services/mutations'
 import NewFolderButton from './NewFolderButton'
-import { BiCog, BiQuestionMark } from 'react-icons/bi'
-import SettingsButton from './SettingsButton'
 import QuestionButton from './QuestionButton'
+import SettingsButton from './SettingsButton'
 
 const FolderItem = ({ isActive, id, text }: { isActive: boolean; text: string; id: number }) => {
   const router = useRouter()
@@ -29,26 +29,37 @@ const FolderItem = ({ isActive, id, text }: { isActive: boolean; text: string; i
 }
 
 const Folders = () => {
-  const items = new Array(25).fill(1)
+  const { data: folders, isLoading } = useQuery(['get-folders'], getFoldersMutation)
   const router = useRouter()
 
+  // console.log(folders)
+
   return (
-    <>
-      <div className='bg-white w-1/4 h-full px-2 pt-12 pb-4 rounded-2xl shadow-xl '>
-        <div className='h-[90%]'>
-          <NewFolderButton />
-          <div className='max-h-[770px] overflow-y-auto scrollbar-thin scrollbar-track-rounded-md scrollbar-thumb-rounded-md scrollbar-track-[#EAE9EA] scrollbar-thumb-[#9E9CA0]'>
-            {items.map((item, index) => (
-              <FolderItem key={index} id={index} isActive={router.query.id === index.toString()} text={'Home'} />
-            ))}
+    <div className='bg-white w-1/4 h-full px-2 pt-12 pb-4 rounded-2xl shadow-xl '>
+      {isLoading ? (
+        <div>Loading...</div>
+      ) : (
+        <>
+          <div className='h-[90%]'>
+            <NewFolderButton />
+            <div className='max-h-[770px] overflow-y-auto scrollbar-thin scrollbar-track-rounded-md scrollbar-thumb-rounded-md scrollbar-track-[#EAE9EA] scrollbar-thumb-[#9E9CA0]'>
+              {folders.map((folder: any) => (
+                <FolderItem
+                  key={folder.id}
+                  id={folder.id}
+                  isActive={router.query.id === folder.id.toString()}
+                  text={folder.title}
+                />
+              ))}
+            </div>
           </div>
-        </div>
-        <div className='pl-[10px] pr-8 flex items-end justify-between h-[10%]'>
-          <QuestionButton />
-          <SettingsButton />
-        </div>
-      </div>
-    </>
+          <div className='pl-[10px] pr-8 flex items-end justify-between h-[10%]'>
+            <QuestionButton />
+            <SettingsButton />
+          </div>
+        </>
+      )}
+    </div>
   )
 }
 

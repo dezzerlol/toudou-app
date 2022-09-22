@@ -1,15 +1,17 @@
-import { Body, Controller, Get, Post } from '@nestjs/common'
+import { Body, Controller, Get, Post, UseGuards } from '@nestjs/common'
+import { JwtAuthGuard } from 'src/auth/jwt-auth.guard'
 import { CreateFolderDto } from './dto/create-folder.dto'
 import { RenameFolderDto } from './dto/rename-folder.dto'
 import { FoldersService } from './folders.service'
 
 @Controller('folders')
+@UseGuards(JwtAuthGuard)
 export class FoldersController {
   constructor(private folderService: FoldersService) {}
 
-  @Get('/get')
-  getFolders(@Body() userId: number) {
-    return this.folderService.getFolders(userId)
+  @Post('/get')
+  getFolders(@Body() data: { userId: number }) {
+    return this.folderService.getFolders(data)
   }
 
   @Post('/create')
@@ -18,8 +20,8 @@ export class FoldersController {
   }
 
   @Post('/delete')
-  deleteFolder(@Body() id: number) {
-    return this.folderService.deleteFolder(id)
+  deleteFolder(@Body() data: { id: number }) {
+    return this.folderService.deleteFolder(data)
   }
 
   @Post('/rename')

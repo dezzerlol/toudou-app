@@ -8,6 +8,11 @@ import { Todo } from './todo.model'
 export class TodoService {
   constructor(@InjectModel(Todo) private todoRepository: typeof Todo) {}
 
+  async getTodos(data: { folderId: number }){
+    const todos = await this.todoRepository.findAll({ where: { folderId: data.folderId } })
+    return todos
+  }
+
   async createTodo(dto: CreateTodoDto) {
     const todo = await this.todoRepository.create(dto)
     return todo

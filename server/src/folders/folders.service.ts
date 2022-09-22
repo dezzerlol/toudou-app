@@ -8,6 +8,11 @@ import { Folder } from './folders.model'
 export class FoldersService {
   constructor(@InjectModel(Folder) private folderRepository: typeof Folder) {}
 
+  async getFolders(data: { userId: number }) {
+    const folders = await this.folderRepository.findAll({ where: { userId: data.userId } })
+    return folders
+  }
+
   async createFolder(dto: CreateFolderDto) {
     try {
       const folder = await this.folderRepository.create(dto)
@@ -17,9 +22,9 @@ export class FoldersService {
     }
   }
 
-  async deleteFolder(id: number) {
+  async deleteFolder(data: { id: number }) {
     try {
-      const folder = await this.folderRepository.destroy({ where: { id } })
+      const folder = await this.folderRepository.destroy({ where: { id: data.id } })
       return folder
     } catch (error) {
       console.log(error)

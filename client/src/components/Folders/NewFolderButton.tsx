@@ -1,7 +1,10 @@
+import { useMutation } from '@tanstack/react-query'
 import React from 'react'
 import { BiPlus, BiCommand } from 'react-icons/bi'
+import { createFolderMutation } from '../../services/mutations'
 
 const NewFolderButton = () => {
+  const {mutate, isLoading} = useMutation(['create-folder'], createFolderMutation)
     
   const createNewList = () => {
     console.log('create new list')
