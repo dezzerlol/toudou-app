@@ -1,11 +1,21 @@
 import React, { useState } from 'react'
 import { BiCheck } from 'react-icons/bi'
+import { motion } from 'framer-motion'
+
+const variants = {
+  pre: { opacity: 0 },
+  visible: { opacity: 1 },
+}
 
 const TodoItem = ({ text, icon, isCompleted }: { text: string; icon: string; isCompleted: boolean }) => {
   const [completed, setCompleted] = useState(isCompleted)
 
   return (
-    <div className='mt-4 py-4 px-2 w-full flex justify-between items-center rounded-2xl bg-white shadow-sm'>
+    <motion.div
+      variants={variants}
+      initial='pre'
+      animate='visible'
+      className='mt-4 py-4 px-2 w-full flex justify-between items-center rounded-2xl bg-white shadow-sm'>
       <div className='flex items-center'>
         <div
           onClick={() => setCompleted(!completed)}
@@ -16,7 +26,7 @@ const TodoItem = ({ text, icon, isCompleted }: { text: string; icon: string; isC
         <div className=''>{text}</div>
       </div>
       <div>{icon ? icon : ''}</div>
-    </div>
+    </motion.div>
   )
 }
 

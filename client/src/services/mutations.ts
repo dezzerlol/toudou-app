@@ -20,6 +20,10 @@ export const getFoldersMutation = async () => {
   return fetcher('/folder/getFolders')
 }
 
-export const createFolderMutation = ({title, userId}: {title: string, userId: number}) =>{
-  return fetcher('/folder/createFolder', {title, userId})
+export const createFolderMutation = ({ title }: { title: string }) => {
+  return fetcher('/folder/createFolder', { title })
+}
+
+export const createTodoMutation = ({ text, folderId }: { text: string; folderId: string }) => {
+  return fetcher('/todo/createTodo', { text, folderId })
 }

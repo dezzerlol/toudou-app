@@ -5,7 +5,7 @@ import { UpdateTodoDto } from './dto/update-todo.dto'
 import { TodoService } from './todo.service'
 
 @Controller('todo')
-/* @UseGuards(JwtAuthGuard) */
+@UseGuards(JwtAuthGuard)
 export class TodoController {
   constructor(private todoService: TodoService) {}
 
