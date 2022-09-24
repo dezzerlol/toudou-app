@@ -1,13 +1,11 @@
-import Image from 'next/image'
+import { AnimatePresence } from 'framer-motion'
 import Link from 'next/link'
 import { useState } from 'react'
-import { useSignup } from '../../hooks/useSignup'
 import { BiCheckCircle, BiError } from 'react-icons/bi'
+import { useSignup } from '../../hooks/useSignup'
 import Toast from '../Toast'
-import { AnimatePresence } from 'framer-motion'
-import { SpinnerCircularFixed } from 'spinners-react'
-import SubmitButton from './SubmitButton'
 import Logo from './Logo'
+import SubmitButton from './SubmitButton'
 
 const SignupForm = () => {
   const [email, setEmail] = useState('')

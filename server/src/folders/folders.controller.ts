@@ -2,6 +2,7 @@ import { Body, Controller, Get, Post, UseGuards } from '@nestjs/common'
 import { JwtAuthGuard } from 'src/auth/jwt-auth.guard'
 import { CreateFolderDto } from './dto/create-folder.dto'
 import { RenameFolderDto } from './dto/rename-folder.dto'
+import { UpdateFolderDto } from './dto/update-folder.dto'
 import { FoldersService } from './folders.service'
 
 @Controller('folders')
@@ -27,5 +28,10 @@ export class FoldersController {
   @Post('/rename')
   renameFolder(@Body() dto: RenameFolderDto) {
     return this.folderService.renameFolder(dto)
+  }
+
+  @Post('/update')
+  updateFolder(@Body() dto: UpdateFolderDto) {
+    return this.folderService.updateFolder(dto)
   }
 }

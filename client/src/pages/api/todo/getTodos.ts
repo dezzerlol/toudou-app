@@ -19,10 +19,10 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
     body: JSON.stringify({ folderId: Number(folderId) }),
   })
 
-  const folders = await data.json()
+  const todos = await data.json()
 
   // sort by createdAt date. newest first
-  folders.sort((a: any, b: any) => -a.createdAt.localeCompare(b.createdAt))
+  todos.sort((a: any, b: any) => -a.createdAt.localeCompare(b.createdAt))
 
-  return res.status(201).json(folders)
+  return res.status(201).json(todos)
 }

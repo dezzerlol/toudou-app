@@ -1,4 +1,4 @@
-import { Body, Controller, Get, Post, UseGuards } from '@nestjs/common'
+import { Body, Controller, Post, UseGuards } from '@nestjs/common'
 import { JwtAuthGuard } from 'src/auth/jwt-auth.guard'
 import { CreateTodoDto } from './dto/create-todo.dto'
 import { UpdateTodoDto } from './dto/update-todo.dto'
@@ -20,8 +20,8 @@ export class TodoController {
   }
 
   @Post('/delete')
-  deleteTodo(@Body() id: number) {
-    return this.todoService.deleteTodo(id)
+  deleteTodo(@Body() data: { id: number }) {
+    return this.todoService.deleteTodo(data)
   }
 
   @Post('/update')

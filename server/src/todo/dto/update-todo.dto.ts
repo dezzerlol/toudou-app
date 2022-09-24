@@ -1,6 +1,10 @@
 
 export class UpdateTodoDto {
-  readonly newText: string
+  readonly id: number
 
-  readonly todoId: number
+  readonly text?: string
+
+  readonly icon?: string
+
+  readonly completed?: boolean
 }

@@ -54,7 +54,7 @@ services:
       - postgres
     depends_on:
       - postgres
-    restart: always
+    restart: unless-stopped
   
   client:
     container_name: client
@@ -74,7 +74,7 @@ services:
       - postgres
     depends_on:
       - postgres
-    restart: always
+    restart: unless-stopped
 
 networks:
   postgres:

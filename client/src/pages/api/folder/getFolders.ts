@@ -19,5 +19,8 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
 
   const folders = await data.json()
 
+   // sort by createdAt date. newest first
+   folders.sort((a: any, b: any) => -a.createdAt.localeCompare(b.createdAt))
+
   return res.status(201).json(folders)
 }

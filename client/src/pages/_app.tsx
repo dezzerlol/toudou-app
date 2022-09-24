@@ -24,15 +24,11 @@ function MyApp({ Component, pageProps }: AppProps) {
 
 export default MyApp
 
-
 // TODO:
-// theme switch
-// settings popup
 // madeby popup
 // hover folder animation
 // notes & folders apis
-// emoji picker for note
-// create folder shortcut
-// note input onfocus select folder
-// note completed animation
+// note input onfocus dropdown with folders
 // folder color emoji main colors ??? is it even possible
+// zombie todos when deleting folder
+// delete todo not working

@@ -8,7 +8,7 @@ import { Todo } from './todo.model'
 export class TodoService {
   constructor(@InjectModel(Todo) private todoRepository: typeof Todo) {}
 
-  async getTodos(data: { folderId: number }){
+  async getTodos(data: { folderId: number }) {
     const todos = await this.todoRepository.findAll({ where: { folderId: data.folderId } })
     return todos
   }
@@ -18,19 +18,19 @@ export class TodoService {
     return todo
   }
 
-  async deleteTodo(id: number) {
-    const todo = await this.todoRepository.destroy({ where: { id } })
+  async deleteTodo(data: { id: number }) {
+    const todo = await this.todoRepository.destroy({ where: { id: data.id } })
     return todo
   }
 
   async updateTodo(dto: UpdateTodoDto) {
-    const todo = await this.todoRepository.findOne({ where: { id: dto.todoId } })
+    const todo = await this.todoRepository.findOne({ where: { id: dto.id } })
 
     if (!todo) {
       return new HttpException('Todo not found', HttpStatus.NOT_FOUND)
     }
 
-    await todo.update({ text: dto.newText })
+    await todo.update({ text: dto.text, icon: dto.icon, completed: dto.completed })
     return dto
   }
 }

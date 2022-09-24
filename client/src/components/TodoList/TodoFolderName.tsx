@@ -1,18 +1,21 @@
-import React, { useState } from 'react'
+import React from 'react'
+import { useUpdateFolder } from '../../hooks/useUpdateFolder'
 import { debounce } from '../../lib/debounce'
 
-const TodoFolderName = ({ folderName }: any) => {
-  const [name, setName] = useState(folderName)
+const TodoFolderName = ({ folder }: any) => {
+  const { mutate } = useUpdateFolder()
 
-  const handleFolderNameChange = (e: React.ChangeEvent<HTMLInputElement>) => {}
+  const handleFolderNameChange = debounce((e: React.ChangeEvent<HTMLInputElement>) => {
+    mutate({ title: e.target.value, id: folder.id })
+  }, 800)
 
-  
   return (
     <input
-      className='font-semibold text-2xl text-[#3B353C] focus:outline-none bg-transparent'
-      value={folderName}
-      id='folderName'
-      onChange={(e) => setName(e.target.value)}
+      className='font-semibold text-2xl text-[#3B353C] dark:text-[#8A8D94] focus:outline-none bg-transparent'
+      defaultValue={folder && folder.title ? folder.title : ''}
+      key={folder && folder.title ? folder.title : ''}
+      id='folder-name'
+      onChange={handleFolderNameChange}
     />
   )
 }

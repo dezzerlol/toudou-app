@@ -1,0 +1,14 @@
+.todo {
+  --thickness: 0.1em;
+  --strike: 0;
+
+  background: linear-gradient(90deg, transparent, currentColor 0) no-repeat right center / calc(var(--strike) * 100%)
+    var(--thickness);
+
+  transition: background-size 0.4s ease;
+}
+
+.todo.completed {
+  --strike: 1; /* "1" means "true" (show the strike line) */
+  background-position-x: left;
+}

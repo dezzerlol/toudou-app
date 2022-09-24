@@ -24,20 +24,33 @@ const TodoList = () => {
   return (
     <div className='w-full flex flex-col items-center'>
       <div className='pt-4 w-2/3 flex'>
-        <FolderIconPicker />
+        <FolderIconPicker folder={folder} />
 
         <div className='w-10/12'>
-          <TodoFolderName folderName={folder ? folder.title : ''} />
-          <TodoInput />
+          <TodoFolderName folder={folder} />
+          <TodoInput key={folder ? folder.id : ''} />
 
           <AnimateSharedLayout>
             <motion.div
               layout
-              className='mt-4 pr-6 overflow-y-auto max-h-[800px] scrollbar-thin scrollbar-track-rounded-md scrollbar-thumb-rounded-md scrollbar-track-[#EAE9EA] scrollbar-thumb-[#9E9CA0]'>
+              className='mt-4 pr-6 overflow-y-auto max-h-[800px] 
+              scrollbar-thin 
+              scrollbar-track-rounded-md 
+              scrollbar-thumb-rounded-md 
+              scrollbar-track-[#EAE9EA] 
+              scrollbar-thumb-[#9E9CA0]
+              dark:scrollbar-thumb-[#474954]
+              dark:scrollbar-track-[#1C1D22]'>
               <AnimatePresence>
-                {todos &&
-                  todos.map((todo: any) => (
-                    <TodoItem text={todo.text} key={todo.id} icon={todo.icon} isCompleted={todo.completed} />
+                {folder &&
+                 folder.todos.map((todo: any) => (
+                    <TodoItem
+                      text={todo.text}
+                      key={todo.id}
+                      id={todo.id}
+                      icon={todo.icon}
+                      isCompleted={todo.completed}
+                    />
                   ))}
               </AnimatePresence>
             </motion.div>
