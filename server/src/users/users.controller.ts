@@ -13,6 +13,7 @@ import { UsersService } from './users.service'
 @Controller('users')
 export class UsersController {
   constructor(private usersService: UsersService) {}
+  
   @ApiOperation({ summary: 'Create user' })
   @ApiResponse({ status: 200, type: User })
   @UsePipes(ValidationPipe)
@@ -23,8 +24,8 @@ export class UsersController {
 
   @ApiOperation({ summary: 'Get all users' })
   @ApiResponse({ status: 200, type: [User] })
-  /* @Roles('ADMIN')
-  @UseGuards(RolesGuard) */
+  @Roles('ADMIN')
+  @UseGuards(RolesGuard)
   @Get()
   getAll() {
     return this.usersService.getUsers()

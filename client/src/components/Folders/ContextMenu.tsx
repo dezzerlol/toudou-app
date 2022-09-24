@@ -19,7 +19,7 @@ const ContextMenu = ({ points, clickedFolderId }: any) => {
       queryClient.setQueryData(['get-folders'], () => [...currentFolders])
 
       if (router.query.id === clickedFolderId.toString()) {
-        router.push(`/folder/${currentFolders[0].id}`)
+        router.push(`/folder/${currentFolders[0] ? currentFolders[0].id : '1'}`)
       }
 
       return { previousFolders }

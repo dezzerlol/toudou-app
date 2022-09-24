@@ -1,7 +1,6 @@
 import { NestFactory } from '@nestjs/core'
 import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger'
 import { AppModule } from './app.module'
-import { Folder } from './folders/folders.model'
 
 async function start() {
   const PORT = process.env.PORT || 5000

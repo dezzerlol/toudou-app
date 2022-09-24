@@ -5,7 +5,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
   const cookie = req.cookies['AUTH_TOKEN']
   const { text, folderId } = req.body
 
-  console.log(folderId)
+  console.log({folderId})
 
   if (cookie === undefined) {
     res.status(401).json({ message: 'Unauthorized' })

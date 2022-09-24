@@ -7,8 +7,6 @@ import { AuthModule } from './auth/auth.module'
 import { FilesModule } from './files/files.module'
 import { Folder } from './folders/folders.model'
 import { FoldersModule } from './folders/folders.module'
-import { Post } from './posts/posts.model'
-import { PostsModule } from './posts/posts.module'
 import { Role } from './roles/roles.model'
 import { RolesModule } from './roles/roles.module'
 import { UserRoles } from './roles/users-roles.model'
@@ -32,13 +30,12 @@ import { UsersModule } from './users/users.module'
       username: process.env.POSTGRES_USERNAME,
       password: process.env.POSTGRES_PASSWORD,
       database: process.env.POSTGRES_DB_NAME,
-      models: [User, Role, UserRoles, Post, Folder, Todo],
+      models: [User, Role, UserRoles, Folder, Todo],
       autoLoadModels: true,
     }),
     UsersModule,
     RolesModule,
     AuthModule,
-    PostsModule,
     FilesModule,
     FoldersModule,
     TodoModule

@@ -24,7 +24,7 @@ const TodoItem = ({ text, icon, isCompleted, id }: Props) => {
   const { mutate } = useMutation(['update-todo'], updateTodoMutation)
   const deleteTodo = useMutation(['delete-todo'], deleteTodoMutation, {
     async onSuccess() {
-      queryClient.invalidateQueries(['get-todos'])
+      queryClient.invalidateQueries(['get-folders'])
     },
   })
 

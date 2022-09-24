@@ -31,4 +31,3 @@ export default MyApp
 // note input onfocus dropdown with folders
 // folder color emoji main colors ??? is it even possible
 // zombie todos when deleting folder
-// delete todo not working

@@ -13,14 +13,18 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
   const data = await fetch(`http://localhost:5000/folders/get`, {
     method: 'POST',
     credentials: 'include',
-    headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${cookie}` },
-    body: JSON.stringify({userId: verifiedCookie.id}),
+    headers: { 'Content-Type': 'application/json', Authorization: `Bearer ${cookie}` },
+    body: JSON.stringify({ userId: verifiedCookie.id }),
   })
 
   const folders = await data.json()
 
-   // sort by createdAt date. newest first
-   folders.sort((a: any, b: any) => -a.createdAt.localeCompare(b.createdAt))
+  // sort by createdAt date. newest first
+  folders.sort((a: any, b: any) => -a.createdAt.localeCompare(b.createdAt))
+
+  folders.forEach((folder: any) => {
+    return folder.todos.sort((a: any, b: any) => -a.createdAt.localeCompare(b.createdAt))
+  })
 
   return res.status(201).json(folders)
 }

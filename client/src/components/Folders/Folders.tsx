@@ -17,6 +17,7 @@ const Folders = () => {
   const [isContextMenuOpen, setIsContextMenuOpen] = useState(false)
   const [clickedFolderId, setClickedFolderId] = useState(0)
 
+  console.log({folders})
 
   return (
     <>

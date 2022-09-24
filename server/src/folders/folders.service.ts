@@ -2,7 +2,7 @@ import { Injectable } from '@nestjs/common'
 import { InjectModel } from '@nestjs/sequelize'
 import { Todo } from 'src/todo/todo.model'
 import { CreateFolderDto } from './dto/create-folder.dto'
-import { RenameFolderDto } from './dto/rename-folder.dto'
+import { GetFoldersDto } from './dto/get-folders.dto'
 import { UpdateFolderDto } from './dto/update-folder.dto'
 import { Folder } from './folders.model'
 
@@ -10,8 +10,8 @@ import { Folder } from './folders.model'
 export class FoldersService {
   constructor(@InjectModel(Folder) private folderRepository: typeof Folder) {}
 
-  async getFolders(data: { userId: number }) {
-    const folders = await this.folderRepository.findAll({ where: { userId: data.userId }, include: [Todo] })
+  async getFolders(dto: GetFoldersDto) {
+    const folders = await this.folderRepository.findAll({ where: { userId: dto.userId }, include: [Todo] })
     return folders
   }
 
@@ -27,15 +27,6 @@ export class FoldersService {
   async deleteFolder(data: { id: number }) {
     try {
       const folder = await this.folderRepository.destroy({ where: { id: data.id } })
-      return folder
-    } catch (error) {
-      console.log(error)
-    }
-  }
-
-  async renameFolder(dto: RenameFolderDto) {
-    try {
-      const folder = await this.folderRepository.update({ title: dto.newTitle }, { where: { id: dto.folderId } })
       return folder
     } catch (error) {
       console.log(error)
