@@ -2,6 +2,7 @@ import { forwardRef, Module } from '@nestjs/common'
 import { SequelizeModule } from '@nestjs/sequelize'
 import { AuthModule } from 'src/auth/auth.module'
 import { Folder } from 'src/folders/folders.model'
+import { FoldersModule } from 'src/folders/folders.module'
 import { Role } from 'src/roles/roles.model'
 import { RolesModule } from 'src/roles/roles.module'
 import { UserRoles } from 'src/roles/users-roles.model'
@@ -16,6 +17,7 @@ import { UsersService } from './users.service'
     SequelizeModule.forFeature([User, Role, UserRoles, Folder]),
     RolesModule,
     forwardRef(() => AuthModule),
+    forwardRef(() => FoldersModule),
   ],
   exports: [UsersService],
 })

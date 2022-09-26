@@ -60,7 +60,7 @@ const SettingsButton = () => {
               </div>
 
               {/* https://github.com/vercel/next.js/discussions/34991 */}
-              <form method='POST' action='/api/logout' className='flex items-center cursor-pointer'>
+              <form method='POST' action='/api/auth/logout' className='flex items-center cursor-pointer'>
                 <button type='submit' className='flex items-center'>
                   <BiLogOutCircle />
                   <span className='ml-1'>Logout</span>

@@ -2,15 +2,15 @@ import fetcher from './fetcher'
 
 // USER
 export const signupMutation = async ({ email, password }: { email: string; password: string }) => {
-  await fetcher('/signup', { email, password })
+  return fetcher('/auth/signup', { email, password })
 }
 
 export const loginMutation = async ({ email, password }: { email: string; password: string }) => {
-  await fetcher('/login', { email, password })
+  return fetcher('/auth/login', { email, password })
 }
 
 export const logoutMutation = async () => {
-  await fetcher('/logout')
+  return fetcher('/auth/logout')
 }
 
 // FOLDERS

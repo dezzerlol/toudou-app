@@ -21,6 +21,14 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
   const payload = decodeJwt(data.token)
   const expTime = new Date((payload.exp as number) * 1000)
 
+  // get folders to redirect user to last folder
+  const foldersData = await fetch(`http://localhost:5000/folders/get`, {
+    method: 'POST',
+    credentials: 'include',
+    headers: { 'Content-Type': 'application/json', Authorization: `Bearer ${data.token}` },
+    body: JSON.stringify({ userId: payload.id }),
+  })
+  const folders = await foldersData.json()
 
   res.setHeader(
     'Set-Cookie',
@@ -32,5 +40,10 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
       secure: process.env.NODE_ENV === 'production',
     })
   )
-  return res.status(200).json(data)
+
+  // sort by createdAt date. newest first
+  folders.sort((a: any, b: any) => -a.createdAt.localeCompare(b.createdAt))
+
+  // return last folder id
+  return res.status(200).json({ data, folder: folders[0].id })
 }

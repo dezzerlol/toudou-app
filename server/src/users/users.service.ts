@@ -1,5 +1,6 @@
-import { HttpException, HttpStatus, Injectable } from '@nestjs/common'
+import { forwardRef, HttpException, HttpStatus, Inject, Injectable } from '@nestjs/common'
 import { InjectModel } from '@nestjs/sequelize'
+import { FoldersService } from 'src/folders/folders.service'
 import { RolesService } from 'src/roles/roles.service'
 import { AddRoleDto } from './dto/add-role.dto'
 import { BanUserDto } from './dto/ban-user.dto'
@@ -8,13 +9,19 @@ import { User } from './users.model'
 
 @Injectable()
 export class UsersService {
-  constructor(@InjectModel(User) private userRepository: typeof User, private roleService: RolesService) {}
+  constructor(
+    @InjectModel(User) private userRepository: typeof User,
+    private roleService: RolesService,
+    @Inject(forwardRef(() => FoldersService)) private readonly folderService: FoldersService
+  ) {}
 
   async createUser(dto: CreateUserDto) {
     const user = await this.userRepository.create(dto)
     const role = await this.roleService.getRoleByValue('USER')
     await user.$set('roles', [role.id])
     user.roles = [role]
+    // create first folder for user
+    const folder = await this.folderService.createFolder({ title: 'Your first folder', userId: user.id })
     return user
   }
 

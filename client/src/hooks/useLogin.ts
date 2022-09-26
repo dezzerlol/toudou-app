@@ -5,8 +5,8 @@ import { loginMutation } from '../services/mutations'
 export const useLogin = () => {
   const router = useRouter()
   const { isLoading, mutate, error, isError } = useMutation<any, any, any, any>(['login'], loginMutation, {
-    onSuccess() {
-      router.replace('/')
+    onSuccess(data) {
+      router.replace(`/folder/${data.folder}`)
     },
   })
 

@@ -5,8 +5,8 @@ export const useCreateTodo = (folderId: string) => {
   const queryClient = useQueryClient()
 
   const { mutate, isLoading, error } = useMutation(['create-todo'], createTodoMutation, {
-    onMutate: async (addedTodo) => {
-      await queryClient.cancelQueries(['get-folders'])
+    onSuccess: async (addedTodo) => {
+      /* await queryClient.cancelQueries(['get-folders'])
 
       const previousFolders: any = queryClient.getQueryData(['get-folders'])
 
@@ -22,7 +22,8 @@ export const useCreateTodo = (folderId: string) => {
       // set new folder
       queryClient.setQueryData(['get-folders'], () => [...currentFolders])
 
-      return { previousFolders }
+      return { previousFolders } */
+      queryClient.invalidateQueries(['get-folders'])
     },
   })
 

@@ -27,7 +27,6 @@ export default MyApp
 // TODO:
 // madeby popup
 // hover folder animation
-// notes & folders apis
 // note input onfocus dropdown with folders
 // folder color emoji main colors ??? is it even possible
-// zombie todos when deleting folder
+// if folder is empty and in this folder todo is added it created with id 1, so later you cant delete until you refresh to get actual id from DB
